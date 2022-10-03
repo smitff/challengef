@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import RNLocation from 'react-native-location';
 import { LOCATION_FAILURE, LOCATION_REQUEST, LOCATION_SUCCESS } from '../constants/constants';
 
-import { getListdata } from './area';
+import { getListdata,createPolygon } from './area';
 export const permissionHandle =  () => {
 
     return async (dispatch) => {
@@ -50,9 +50,8 @@ export const permissionHandle =  () => {
         payload: location
       });
       
-      NavigationService.replace('MapScreen',{
-        check:1
-      });
+      // NavigationService.replace('MapScreen');
+      dispatch(createPolygon())
       }
       else{
         console.log('else')
@@ -68,9 +67,11 @@ export const permissionHandle =  () => {
           
         });
 
-        NavigationService.replace('MapScreen',{
-          check:1
-        });
+        // NavigationService.replace('MapScreen',{
+        //   check:1
+        // });
+      dispatch(createPolygon())
+
       }
  } else {
 
@@ -83,9 +84,9 @@ export const permissionHandle =  () => {
                   type: LOCATION_SUCCESS,
                   payload: location
                 });
-      NavigationService.replace('MapScreen',{
-        check:1
-      });
+      dispatch(createPolygon())
+
+      // NavigationService.replace('MapScreen');
 
 
       // NavigationService.navigate('MapScreen');

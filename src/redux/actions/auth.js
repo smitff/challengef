@@ -5,6 +5,7 @@ import {REGISTER_REQUEST,REGISTER_SUCCESS,REGISTER_FAILURE,
 } from '../constants/constants'
 import { Alert } from 'react-native';
 import {getListdata} from './area'
+import {permissionHandle} from './location'
 
 export const register = (email,password) => {
     return async (dispatch) => {
@@ -27,7 +28,8 @@ export const register = (email,password) => {
                         type:REGISTER_SUCCESS,
                         payload:email
                     });
-                    NavigationService.navigate('SplashScreen');
+                    // NavigationService.navigate('SplashScreen');
+                    dispatch(permissionHandle())
                 }
         }catch(error) {
             dispatch({
@@ -64,10 +66,9 @@ export const login = (email,password) => {
                     type:LOGIN_SUCCESS,
                     payload:email
                 });
-
                 // dispatch(getListdata(`${storedata.email}list`))
-                NavigationService.navigate('SplashScreen');
-
+                // NavigationService.navigate('SplashScreen');
+                dispatch(permissionHandle())
 
             }
         }catch(error) {

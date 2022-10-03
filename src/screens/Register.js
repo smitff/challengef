@@ -1,6 +1,6 @@
 //import liraries
 import React, { useState } from 'react';
-import { View, Text, StyleSheet,TextInput,TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet,TextInput,TouchableOpacity,Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {register} from '../redux/actions/auth'
 import {useDispatch,useSelector} from'react-redux'
@@ -21,6 +21,8 @@ const Register = ({navigation}) => {
         if(email!=='' && password!==''){
             //
             dispatch(register(email,password));
+            setemail('');
+            setpassword('');
         }
         else{
             Alert.alert('Error','Please enter email and password');
@@ -45,13 +47,13 @@ const Register = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View>
+            {/* <View>
                 <TouchableOpacity style={{  alignSelf: 'flex-end',}}
                     onPress={() => { navigation.navigate('Login'); }}
                 >
                     <Text style={styles.logintext}>Login</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
 
             <View style={styles.bottomContainer}>
@@ -83,6 +85,27 @@ const Register = ({navigation}) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
+
+                <View style={styles.loginTextContainer}>
+                    <Text style={styles.loginTextContainerText}>
+                        Already have an account? 
+                    </Text>
+                    <TouchableOpacity 
+                    onPress={()=>{navigation.navigate('Login'); }}>
+                        <Text 
+                        // style={{
+                        //     color:'#0A5DCF',
+                        //     fontSize:16,
+                        //     fontWeight:'bold',
+                        // }}
+                        style={styles.logintext}
+                        
+                        >Login</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+
             </View>
         </SafeAreaView>
     );
@@ -96,9 +119,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     logintext:{
-        fontSize: 20,
-        fontWeight: '700',
-        color:'cyan'
+        fontSize: 16,
+        fontWeight: 'bold',
+        color:'#0A5DCF'
     },
     bottomContainer:{
         // backgroundColor: 'yellow',
@@ -124,7 +147,7 @@ const styles = StyleSheet.create({
         marginTop: 24,
     },
     btnPressContainer:{
-        backgroundColor:"cyan",
+        backgroundColor:"#0A5DCF",
         justifyContent:'center',
         alignItems:'center',
         height: 40,
@@ -135,7 +158,21 @@ const styles = StyleSheet.create({
         // fontFamily: 'OpenSans-Regular',
         fontWeight: '700',
         fontSize: 20,
+    },
+    loginTextContainer:{
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        // backgroundColor:'yellow',
+        marginTop:20,   
+    },
+    loginTextContainerText:{
+        color:'#000',
+        fontSize:16,
+        marginRight:5,
     }
+
+
 
 
 });

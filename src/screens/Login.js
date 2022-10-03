@@ -1,5 +1,5 @@
 //import liraries
-import React, { useState } from 'react';
+import React, { useState,useLayoutEffect } from 'react';
 import { View, Text, StyleSheet,TextInput,TouchableOpacity,Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {useDispatch,useSelector} from'react-redux'
@@ -14,11 +14,19 @@ const Login = ({navigation}) => {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
+
+
+
+
+
+
     const handleLogin = () => {
         console.log(email,password);
         if(email!=='' && password!==''){
             //
             dispatch(login(email,password));
+            setemail('');
+            setpassword('');
         }
         else{
             Alert.alert('Error','Please enter email and password');
@@ -43,13 +51,13 @@ const Login = ({navigation}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View>
+            {/* <View>
                 <TouchableOpacity style={{ alignSelf: 'flex-end'}}
                     onPress={() => {navigation.navigate('Register');}}
                 >
                     <Text style={styles.registertext}>Register</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
 
             <View style={styles.bottomContainer}>
@@ -81,6 +89,29 @@ const Login = ({navigation}) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
+
+
+                <View style={styles.registerTextContainer}>
+                    <Text style={styles.registerTextContainerText}>
+                        Don't have an account? 
+                    </Text>
+                    <TouchableOpacity 
+                    onPress={()=>{navigation.navigate('Register'); }}>
+                        <Text 
+                        // style={{
+                        //     color:'#0A5DCF',
+                        //     fontSize:16,
+                        //     fontWeight:'bold',
+                        // }}
+                        style={styles.registertext}
+                        
+                        >Register</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+
+
             </View>
 
 
@@ -98,9 +129,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     registertext:{
-        fontSize: 20,
-        fontWeight: '700',
-        color:'cyan'
+
+        fontSize: 16,
+        fontWeight: 'bold',
+        color:'#0A5DCF'
     },
     bottomContainer:{
         // backgroundColor: 'yellow',
@@ -125,7 +157,7 @@ const styles = StyleSheet.create({
         marginTop: 24,
     },
     btnPressContainer:{
-        backgroundColor:"cyan",
+        backgroundColor:"#0A5DCF",
         justifyContent:'center',
         alignItems:'center',
         height: 40,
@@ -136,6 +168,19 @@ const styles = StyleSheet.create({
         // fontFamily: 'OpenSans-Regular',
         fontWeight: '700',
         fontSize: 20,
+    },
+
+    registerTextContainer:{
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        // backgroundColor:'yellow',
+        marginTop:20,   
+    },
+    registerTextContainerText:{
+        color:'#000',
+        fontSize:16,
+        marginRight:5,
     }
 
 

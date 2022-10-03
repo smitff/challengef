@@ -5,7 +5,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import NavigationService from './src/navigations/NavigationService'
 import ListScreen from './src/screens/ListScreen';
 import MapScreen from './src/screens/MapScreen';
-import { View, Text, StyleSheet,TouchableOpacity,FlatList,Image,ImageBackground,SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity,FlatList,Image,ImageBackground,SafeAreaView,Dimensions } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 import RNLocation from 'react-native-location';
@@ -14,6 +15,9 @@ import {store,persistor} from './src/redux/store'
 import {useDispatch,useSelector} from'react-redux'
 import {permissionHandle} from './src/redux/actions/location'
 import SplashScreen from './src/screens/SplashScreen';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 
 const Stack = createNativeStackNavigator();
 RNLocation.configure({
@@ -84,7 +88,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <NavigationContainer ref={ref => NavigationService.setTopLevelNavigator(ref)}>
+      <NavigationContainer ref={ref => NavigationService.setTopLevelNavigator(ref)}
+    
+      >
           <Stack.Navigator initialRouteName='Register'>
             {/* <Stack.Screen 
             name="Splash" 
@@ -120,27 +126,40 @@ const App = () => {
             />          
 
             <Stack.Screen
+          
  name="ListScreen"
  options={({navigation}) => ({
-   title: 'ROOFLINK',
+   title: '',
    headerTintColor: '#000000',
    headerTitleAlign: 'center',
    headerStyle:{
      backgroundColor: "white",
+     
    },
+  
    headerTitleStyle: {
     //  fontFamily: 'Montserrat',
      fontSize: 22, 
      fontWeight: '600',
      color:'#2F2F2F',
-     marginLeft:-50
+     marginLeft:-50,
    },
 
    headerLeft: () => {
      return (
+
+      <View style={{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'flex-start',
+        width:windowWidth/2,  
+        // backgroundColor:'yellow',
+      }}>
        <TouchableOpacity
        style={{
          // marginLeft:2
+        marginRight:15
+
        }}
        onPress={() => navigation.goBack()}>
          <Image
@@ -153,6 +172,13 @@ const App = () => {
            }}
          />
        </TouchableOpacity>
+
+       <Text style={{
+          fontSize:22,
+          fontWeight:'600',
+          color:'#2F2F2F',
+       }}>ROOFLINK</Text>
+       </View>
      );
    },
  })}
@@ -170,25 +196,37 @@ const App = () => {
 
             name="MapScreen"
             options={({navigation}) => ({
-              title: 'ROOFLINK',
+              title: '',
               headerTintColor: '#000000',
               headerTitleAlign: 'center',
               headerStyle:{
                 backgroundColor: "white",
+                
               },
               headerTitleStyle: {
                 // fontFamily: 'Montserrat',
                 fontSize: 22, 
                 fontWeight: '600',
                 color:'#2F2F2F',
-                marginLeft:-50
+                headerTitleAlign: 'flex-start',
+                alignSelf: 'flex-start',
               },
 
               headerLeft: () => {
                 return (
+           
+                 <View style={{
+                   flexDirection:'row',
+                   alignItems:'center',
+                   justifyContent:'flex-start',
+                   width:windowWidth/2,  
+                   // backgroundColor:'yellow',
+                 }}>
                   <TouchableOpacity
                   style={{
                     // marginLeft:2
+                   marginRight:15
+           
                   }}
                   onPress={() => navigation.goBack()}>
                     <Image
@@ -201,6 +239,13 @@ const App = () => {
                       }}
                     />
                   </TouchableOpacity>
+           
+                  <Text style={{
+                     fontSize:22,
+                     fontWeight:'600',
+                     color:'#2F2F2F',
+                  }}>ROOFLINK</Text>
+                  </View>
                 );
               },
             })}

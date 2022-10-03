@@ -70,5 +70,15 @@ export function calculateArea(locations) {
   }
 
 
-  
+  export function newCoordinates(poly, e, index) {
+    let newCoord = e.nativeEvent.coordinate;
+      let newEditing = Object.assign({}, poly);
+      let newCoordinates = Object.assign({},newEditing);
+      newCoordinates[index] = newCoord;
+      newEditing = newCoordinates;
+      let transformedCoords = Object.keys(newEditing).map(function (key)
+        { return newEditing[key]; });
+      
+      return transformedCoords;
+  }
   

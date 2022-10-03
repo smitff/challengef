@@ -1,4 +1,5 @@
 import NavigationService from '../../navigations/NavigationService'
+// import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 import RNLocation from 'react-native-location';
@@ -7,11 +8,13 @@ import {
     GET_LISTDATA_REQUEST,GET_LISTDATA_SUCCESS,GET_LISTDATA_FAILURE,
     SAVE_DATA_REQUEST,SAVE_DATA_SUCCESS,SAVE_DATA_FAILURE,
     DELETE_DATA_REQUEST,DELETE_DATA_SUCCESS,DELETE_DATA_FAILURE,
-    GET_ITEMDATA_REQUEST,GET_ITEMDATA_SUCCESS,GET_ITEMDATA_FAILURE
+    GET_ITEMDATA_REQUEST,GET_ITEMDATA_SUCCESS,GET_ITEMDATA_FAILURE,
+    CREATE_POLYGON_REQUEST,CREATE_POLYGON_SUCCESS,CREATE_POLYGON_FAILURE
  } from '../constants/constants';
 
-
 export const getListdata = (key) => {
+    //  const navigation = useNavigation();
+
     return async (dispatch) => {
         try {
             dispatch({type:GET_LISTDATA_REQUEST});
@@ -22,6 +25,7 @@ export const getListdata = (key) => {
                     payload:JSON.parse(jsonValue)
                 });
                 NavigationService.navigate('ListScreen');
+                // navigation.navigate('ListScreen');
             }
             else{
                 dispatch({
@@ -110,9 +114,7 @@ export const itemClick = (item) => {
                 type:GET_ITEMDATA_SUCCESS,
                 payload:item
             });
-            NavigationService.navigate('MapScreen',{
-                check:0
-            });
+            NavigationService.navigate('MapScreen');
         }catch(error) {
             dispatch({
                 type:GET_ITEMDATA_FAILURE,
@@ -122,6 +124,23 @@ export const itemClick = (item) => {
     } 
 }
 
+export const createPolygon = () => {
+    return async (dispatch) => {
+        try {
+            dispatch({type:CREATE_POLYGON_REQUEST});
+            dispatch({
+                type:CREATE_POLYGON_SUCCESS,
+                // payload:item
+            });
+            NavigationService.navigate('MapScreen');
+        }catch(error) {
+            dispatch({
+                type:CREATE_POLYGON_FAILURE,
+                payload:error
+            });   
+        }
+    } 
+}
 
 
 

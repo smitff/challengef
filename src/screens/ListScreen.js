@@ -5,14 +5,16 @@ import { View, Text, StyleSheet,TouchableOpacity,FlatList,Image,ImageBackground,
 import AntDesign from 'react-native-vector-icons/AntDesign';
 // create a component
 import {useDispatch,useSelector} from'react-redux'
-import {deleteData,getListdata,itemClick} from '../redux/actions/area'
+import {deleteData,getListdata,itemClick,createPolygon} from '../redux/actions/area'
 const ListScreen = ({navigation}) => {
 
     const dispatch = useDispatch();
     const listdata = useSelector(state=>state.area)
     const storedata = useSelector(state=>state.auth)
 
-    const _keyExtractor = (item, index) => item.coordinates[0].name;
+    // const _keyExtractor = (item, index) => item.coordinates[0].name;
+    const _keyExtractor = (item, index) => index
+
 
     const _renderItem = ({item, index}) => {
         return (
@@ -74,9 +76,8 @@ const ListScreen = ({navigation}) => {
             style={styles.createBtn}
             onPress={() => {
                 console.log('pressed')
-                navigation.navigate('MapScreen',{
-                    check:1
-                });
+                // navigation.navigate('MapScreen');
+                dispatch(createPolygon());
             }}
             >
                 <Text style={styles.text}>Create</Text>

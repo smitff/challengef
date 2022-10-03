@@ -2,7 +2,8 @@ import {
     GET_LISTDATA_REQUEST,GET_LISTDATA_SUCCESS,GET_LISTDATA_FAILURE,
     SAVE_DATA_REQUEST,SAVE_DATA_SUCCESS,SAVE_DATA_FAILURE,
     DELETE_DATA_REQUEST,DELETE_DATA_SUCCESS,DELETE_DATA_FAILURE,
-    GET_ITEMDATA_REQUEST,GET_ITEMDATA_SUCCESS,GET_ITEMDATA_FAILURE
+    GET_ITEMDATA_REQUEST,GET_ITEMDATA_SUCCESS,GET_ITEMDATA_FAILURE,
+    CREATE_POLYGON_REQUEST,CREATE_POLYGON_SUCCESS,CREATE_POLYGON_FAILURE
   } from '../constants/constants'
 
 const INITIAL_STATE = {
@@ -14,7 +15,10 @@ const INITIAL_STATE = {
     itemdata:{
         areaname:"",
         sf:0,
-        // center:findCenter(mystate.coordinates),
+        center:{
+            latitude: 0,
+            longitude: 0,
+        },
         coordinates:[]
     }
 
@@ -38,6 +42,16 @@ const area = (state=INITIAL_STATE,action) =>{
                 message:'Data found',
                 error:null,
                 listdata:action.payload,
+                itemdata:{
+                    areaname:"",
+                    sf:0,
+                    center:{
+                        latitude: 0,
+                        longitude: 0,
+                    },
+                    coordinates:[]
+                }
+
             }
         case GET_LISTDATA_FAILURE:
             return {
@@ -101,6 +115,7 @@ const area = (state=INITIAL_STATE,action) =>{
                 loading:true,
                 message:null,
                 error:null,
+
             }
         case GET_ITEMDATA_SUCCESS:
             return {
@@ -118,7 +133,49 @@ const area = (state=INITIAL_STATE,action) =>{
                 error:action.payload,
             }
 
+        case CREATE_POLYGON_REQUEST:
+            return {
+                ...state,
+                loading:true,
+                message:null,
+                error:null,
+                itemdata:{
+                    areaname:"",
+                    sf:0,
+                    // center:findCenter(mystate.coordinates),
+                    center:{
+                        latitude: 0,
+                        longitude: 0,
 
+                    },
+                    coordinates:[]
+                }
+            }
+        case CREATE_POLYGON_SUCCESS:
+            return {
+                ...state,
+                loading:false,
+                message:'Polygon created',
+                error:null,
+                itemdata:{
+                    areaname:"",
+                    sf:0,
+                    // center:findCenter(mystate.coordinates),
+                    center:{
+                        latitude: 0,
+                        longitude: 0,
+
+                    },
+                    coordinates:[]
+                }
+            }
+        case CREATE_POLYGON_FAILURE:
+            return {
+                ...state,
+                loading:false,
+                message:null,
+                error:action.payload,
+            }
         default:
             return state;
 

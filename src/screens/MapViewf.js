@@ -67,7 +67,8 @@ import { calculateArea,
             //   poly: [...state.poly, e.nativeEvent.coordinate]
 
                 points: [...state.points, l],
-                poly: [...state.poly, l]
+                poly: [...state.poly, l],
+                polygon:true
 
             //   setMyState({
             //       ...mystate,
@@ -150,7 +151,7 @@ import { calculateArea,
           }
         
           const newTerritoryInfo = () => {
-            if (state.polygon) {
+            if (!state.polygon) {
               return
             }
             let territoryInfo = calculateTerritoryInfo()
@@ -194,18 +195,18 @@ import { calculateArea,
           showsUserLocation={true}
           showsMyLocationButton={true}
           onPoiClick = {(e) => {
-            state.polygon ?
-            console.log('pressed') :
+            // state.polygon ?
+            // console.log('pressed') :
             addPoints(e)}
           }
           onPress = {(e) => {
-            state.polygon ?
-            console.log('pressed') :
+            // state.polygon ?
+            // console.log('pressed') :
             addPoints(e)}
           }
         >
         {state.showMarks ? 
-         state.polygon && state.poly.length>0 ? 
+         state.polygon && state.poly.length>0 ?
         <Polygon
           coordinates={state.poly}
           strokeColor="#0000FF"
@@ -228,10 +229,23 @@ import { calculateArea,
             key={index} 
             draggable={true}
             opacity={0.5}
-            onDrag={(e) => changeCoordinate(e, index)}
-            onDragEnd={() => newTerritoryInfo()}
+            onDrag={(e) => 
+              // changeCoordinate(e, index)
+              {}
+            }
+            onDragEnd={(e) => 
+              // newTerritoryInfo()
+              changeCoordinate(e, index)
+            
+            }
             pinColor='green'
-            coordinate={point.latlng}>
+            coordinate={{
+              latitude: point?.latitude,
+              longitude: point?.longitude,
+          }}
+            // coordinate={point.latlng}
+            >
+
           </Marker> ))}
         </MapView>
         
